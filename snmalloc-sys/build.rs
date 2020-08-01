@@ -138,6 +138,11 @@ fn main() {
     }
 
     if cfg!(target_os = "linux") {
+        // TODO make this generic (maybe via snmalloc specific env var?)
+        // should have worked via LD_LIBRARY_PATH (`export LD_LIBRARY_PATH=/usr/local/lib64`),
+        // but for some reason, it's not being utilized during the final linking
+        println!("cargo:rustc-link-search=native=/usr/local/lib64");
+
         println!("cargo:rustc-link-lib=dylib=stdc++");
         println!("cargo:rustc-link-lib=dylib=atomic");
     }
